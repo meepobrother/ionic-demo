@@ -21,6 +21,7 @@ import { AppProvider } from '../providers/app/app';
 import { CallNumber } from '@ionic-native/call-number';
 import { CardIO } from '@ionic-native/card-io';
 import { QQSDK } from '@ionic-native/qqsdk';
+import { QRScanner } from '@ionic-native/qr-scanner';
 
 export const config: StorageConfig = {
   name: 'runner'
@@ -55,7 +56,8 @@ export const config: StorageConfig = {
     AppProvider,
     CallNumber,
     CardIO,
-    QQSDK
+    QQSDK,
+    QRScanner
   ]
 })
 export class AppModule { }

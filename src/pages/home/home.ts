@@ -12,7 +12,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { CardIO } from '@ionic-native/card-io';
 
 import { QQSDK, QQShareOptions } from '@ionic-native/qqsdk';
-
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -29,9 +29,29 @@ export class HomePage {
     public modalCtrl: ModalController,
     public callNumber: CallNumber,
     private cardIO: CardIO,
-    private qq: QQSDK
+    private qq: QQSDK,
+    public qrScanner: QRScanner
   ) {
 
+  }
+
+  doQrScanner() {
+    this.qrScanner.prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+            console.log('Scanned something', text);
+            this.qrScanner.hide();
+            scanSub.unsubscribe();
+          });
+          this.qrScanner.show();
+        } else if (status.denied) {
+
+        } else {
+
+        }
+      })
+      .catch((e: any) => console.log('Error is', e));
   }
 
   shareText() {
