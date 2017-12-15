@@ -2,17 +2,32 @@ import { Injectable } from '@angular/core';
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
+
 @Injectable()
 export class LocationProvider {
   locationStream: Subject<BackgroundGeolocationResponse> = new Subject();
-  location: any;
+  location: any = {
+    latitude: 116.404,
+    longitude: 39.915
+  };
   header: HttpHeaders = new HttpHeaders();
   constructor(
     public backgroundGeolocation: BackgroundGeolocation,
-    public http: HttpClient
+    public http: HttpClient,
+    private geolocation: Geolocation,
+    public store: Storage
   ) {
-    console.log('Hello LocationProvider Provider');
     this.header.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    this.store.get('myLocation').then(position => {
+      if (position) {
+        this.location = location;
+      }
+    });
+    this.locationStream.subscribe(location => {
+      this.store.set('myLocation', location);
+    });
   }
 
   locationStart(): Subject<BackgroundGeolocationResponse> {
@@ -29,11 +44,13 @@ export class LocationProvider {
       this.uploadLocation();
       this.locationStream.next(this.location);
     });
+    setTimeout(() => {
+      this.locationStream.next(this.location);
+    }, 300);
     return this.locationStream;
   }
 
   uploadLocation() {
-    this.location = this.location || { msg: 'test' }
     this.http.post("https://meepo.com.cn/test.php", this.location, { headers: this.header }).subscribe(res => {
       console.log(res);
     });
@@ -43,4 +60,26 @@ export class LocationProvider {
     this.backgroundGeolocation.stop();
   }
 
+  getCurrentPosition() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let position: any = {
+        latitude: resp.coords.latitude,
+        longitude: resp.coords.longitude
+      };
+      this.locationStream.next(position);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+  }
+
+  watchPosition() {
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      let position: any = {
+        latitude: data.coords.latitude,
+        longitude: data.coords.longitude
+      };
+      this.locationStream.next(position);
+    });
+  }
 }

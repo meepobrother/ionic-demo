@@ -19,27 +19,37 @@ export class MapPage implements OnInit {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public location: LocationProvider
-  ) {
-    this.location.locationStream.subscribe((res: any) => {
-      let point = new BMap.Point(res.longitude, res.latitude);
-      this.mapCtrl.panTo(point);
+  ) { }
 
-      var marker = new BMap.Marker(point);  // 创建标注
-      this.mapCtrl.addOverlay(marker);               // 将标注添加到地图中
-      marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-    });
+  ionViewDidEnter() {
+    setTimeout(() => {
+      this.initMap();
+    }, 300);
   }
 
   ngOnInit() {
-    this.initMap();
+
   }
 
   initMap() {
     this.mapCtrl = new BMap.Map(this.map.nativeElement);
-    this.mapCtrl.centerAndZoom(new BMap.Point(116.404, 39.915), 18);
-    this.mapCtrl.setCurrentCity("北京");
+    let point = new BMap.Point(this.location.location.latitude, this.location.location.longitude);
+    this.mapCtrl.centerAndZoom(point, 18);
     this.mapCtrl.enableScrollWheelZoom(true);
+
+    this.location.locationStream.subscribe((res: any) => {
+      let point = new BMap.Point(res.longitude, res.latitude);
+      BMap.Convertor.translate(point, 0, (pointNew) => {
+        this.mapCtrl.panTo(pointNew);
+        var marker = new BMap.Marker(pointNew);
+        this.mapCtrl.addOverlay(marker);
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+      });
+    });
+
     this.location.locationStart();
+    this.location.getCurrentPosition();
+    this.location.watchPosition();
   }
 
   ionViewDidLoad() {
