@@ -9,6 +9,10 @@ import { LoginComponent } from '../../components/login/login';
 import { MoreComponent } from '../../components/more/more';
 
 import { CallNumber } from '@ionic-native/call-number';
+import { CardIO } from '@ionic-native/card-io';
+
+import { QQSDK, QQShareOptions } from '@ionic-native/qqsdk';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -23,9 +27,42 @@ export class HomePage {
     private locationProvider: LocationProvider,
     public popoverCtrl: PopoverController,
     public modalCtrl: ModalController,
-    public callNumber: CallNumber
+    public callNumber: CallNumber,
+    private cardIO: CardIO,
+    private qq: QQSDK
   ) {
 
+  }
+
+  shareText() {
+    const shareTextOptions: QQShareOptions = {
+      client: this.qq.ClientType.QQ,
+      text: 'This is Share Text',
+      scene: this.qq.Scene.QQ,
+    };
+    this.qq.shareText(shareTextOptions)
+      .then(() => {
+        console.log('shareText success');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  scanCard() {
+    this.cardIO.canScan()
+      .then(
+      (res: boolean) => {
+        if (res) {
+          let options = {
+            requireExpiry: true,
+            requireCVV: false,
+            requirePostalCode: false
+          };
+          this.cardIO.scan(options);
+        }
+      }
+      );
   }
 
   doCallNumber() {

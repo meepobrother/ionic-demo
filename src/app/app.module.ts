@@ -19,6 +19,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ComponentsModule } from '../components/components.module';
 import { AppProvider } from '../providers/app/app';
 import { CallNumber } from '@ionic-native/call-number';
+import { CardIO } from '@ionic-native/card-io';
+import { QQSDK } from '@ionic-native/qqsdk';
+
 export const config: StorageConfig = {
   name: 'runner'
 };
@@ -50,7 +53,9 @@ export const config: StorageConfig = {
     LoginProvider,
     Geolocation,
     AppProvider,
-    CallNumber
+    CallNumber,
+    CardIO,
+    QQSDK
   ]
 })
 export class AppModule { }
