@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { NotificationProvider } from '../providers/notification/notification';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NotificationProvider } from '../providers/notification/notification';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NotificationProvider
+    NotificationProvider,
+    BackgroundGeolocation
   ]
 })
 export class AppModule {}

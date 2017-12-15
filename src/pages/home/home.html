@@ -11,6 +11,8 @@
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
   </p>
-
-  <button ion-button (click)="test()">重新请求</button>
+  <p>{{location | json}}</p>
+  <button ion-button (click)="sendNotification()">发送系统通知</button>
+  <button ion-button (click)="locationStart()">开始后台定位</button>
+  
 </ion-content>
