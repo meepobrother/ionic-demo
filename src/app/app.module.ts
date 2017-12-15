@@ -18,6 +18,7 @@ import { LoginProvider } from '../providers/login/login';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ComponentsModule } from '../components/components.module';
 import { AppProvider } from '../providers/app/app';
+import { CallNumber } from '@ionic-native/call-number';
 export const config: StorageConfig = {
   name: 'runner'
 };
@@ -48,7 +49,8 @@ export const config: StorageConfig = {
     LocationProvider,
     LoginProvider,
     Geolocation,
-    AppProvider
+    AppProvider,
+    CallNumber
   ]
 })
 export class AppModule { }

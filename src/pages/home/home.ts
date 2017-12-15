@@ -8,6 +8,7 @@ import { BackgroundGeolocationResponse } from '@ionic-native/background-geolocat
 import { LoginComponent } from '../../components/login/login';
 import { MoreComponent } from '../../components/more/more';
 
+import { CallNumber } from '@ionic-native/call-number';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -21,9 +22,16 @@ export class HomePage {
     public notificationProvider: NotificationProvider,
     private locationProvider: LocationProvider,
     public popoverCtrl: PopoverController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public callNumber: CallNumber
   ) {
 
+  }
+
+  doCallNumber() {
+    this.callNumber.callNumber("18001010101", true)
+      .then(() => console.log('Launched dialer!'))
+      .catch(() => console.log('Error launching dialer'));
   }
 
   ionViewDidEnter() {
