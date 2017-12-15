@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-declare const cordova: any;
+import { NotificationProvider } from '../../providers/notification/notification';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -8,32 +8,25 @@ declare const cordova: any;
 export class HomePage {
   hasPermission: boolean = true;
   constructor(
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public notificationProvider: NotificationProvider
   ) {
 
   }
 
   test() {
-    cordova.plugins.notification.local.hasPermission((granted) => {
-      this.hasPermission = granted;
-      if (!this.hasPermission) {
-        cordova.plugins.notification.local.requestPermission(function (granted) {
-          this.hasPermission = granted;
+    this.notificationProvider.checkPermission().subscribe(res => {
+      this.hasPermission = res;
+      if (res) {
+        this.notificationProvider.sendNotification({
+          title: 'localNotifications',
+          text: 'text',
+          badge: 10,
+          at: new Date(new Date().getTime() + 3600)
         });
       }
-      if(this.hasPermission){
-        this.send();
-      }
     });
-  }
 
-  send() {
-    cordova.plugins.notification.local.schedule({
-      title: 'localNotifications',
-      text: 'text',
-      badge: 10,
-      at: new Date(new Date().getTime() + 3600)
-    });
   }
 
 }
