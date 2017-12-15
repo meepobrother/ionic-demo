@@ -19,7 +19,7 @@ export class LocationProvider {
     const config: BackgroundGeolocationConfig = {
       desiredAccuracy: 10,
       stationaryRadius: 20,
-      distanceFilter: 30,
+      distanceFilter: 3,
       debug: false,
       stopOnTerminate: false,
     };
