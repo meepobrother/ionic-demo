@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      接单大厅
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,5 +14,8 @@
   <p>{{location | json}}</p>
   <button ion-button (click)="sendNotification()">发送系统通知</button>
   <button ion-button (click)="locationStart()">开始后台定位</button>
+  <button ion-button (click)="goSetting()">系统设置</button>
+  <button ion-button (click)="goLogin()">地图</button>
+  
   
 </ion-content>

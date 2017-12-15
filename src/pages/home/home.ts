@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NotificationProvider } from '../../providers/notification/notification';
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
+import { LocationProvider } from '../../providers/location/location';
+
+import { BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -12,24 +14,19 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public notificationProvider: NotificationProvider,
-    private backgroundGeolocation: BackgroundGeolocation
-  ) {
+    private locationProvider: LocationProvider
+  ) { }
 
+  goSetting() {
+    this.navCtrl.push('SettingPage')
+  }
+
+  goLogin(){
+    this.navCtrl.push('MapPage')
   }
 
   locationStart() {
-    const config: BackgroundGeolocationConfig = {
-      desiredAccuracy: 10,
-      stationaryRadius: 20,
-      distanceFilter: 30,
-      debug: false,
-      stopOnTerminate: false,
-    };
-    this.backgroundGeolocation.configure(config)
-      .subscribe((location: BackgroundGeolocationResponse) => {
-        this.location = location;
-      });
-    this.backgroundGeolocation.start();
+    this.locationProvider.locationStart();
   }
 
   sendNotification() {

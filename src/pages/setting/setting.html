@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>系统设置</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>系统通知</ion-label>
+      <ion-toggle [(ngModel)]="setting.notification" (ngModelChange)="onNotificationChange($event)"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>位置上报</ion-label>
+      <ion-toggle [(ngModel)]="setting.location" (ngModelChange)="onLocationChange($event)"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <p>{{location | json}}</p>
+</ion-content>
