@@ -97,4 +97,5 @@
         <variable name="QQ_APP_ID" value="czETCXOnbz3luKJJ" />
     </plugin>
     <plugin name="cordova-plugin-qrscanner" spec="^2.5.0" />
+    <plugin name="cordova-sms-plugin" spec="^0.1.11" />
 </widget>

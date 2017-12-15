@@ -13,6 +13,8 @@ import { CardIO } from '@ionic-native/card-io';
 
 import { QQSDK, QQShareOptions } from '@ionic-native/qqsdk';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { SMS } from '@ionic-native/sms';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -30,9 +32,14 @@ export class HomePage {
     public callNumber: CallNumber,
     private cardIO: CardIO,
     private qq: QQSDK,
-    public qrScanner: QRScanner
+    public qrScanner: QRScanner,
+    private sms: SMS
   ) {
 
+  }
+
+  sendSms() {
+    this.sms.send('13140415408', 'Hello world!');
   }
 
   doQrScanner() {
