@@ -24,9 +24,11 @@ export class LocationProvider {
       if (position) {
         this.location = location;
       }
+    }).catch(err => {
+      console.log(err);
     });
     this.locationStream.subscribe(location => {
-      this.store.set('myLocation', location);
+      this.store.set('myLocation', location).then(res => { }).catch(error => { });
     });
   }
 

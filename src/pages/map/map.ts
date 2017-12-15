@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
+import { LoginComponent } from '../../components/login/login';
+import { MoreComponent } from '../../components/more/more';
+
 declare const BMap: any;
 declare const BMAP_ANIMATION_BOUNCE: any;
 import { LocationProvider } from '../../providers/location/location';
+import { PopoverController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
-export class MapPage implements OnInit {
+export class MapPage {
   @ViewChild('map') map: ElementRef;
 
   mapCtrl: any;
@@ -18,7 +21,8 @@ export class MapPage implements OnInit {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    public location: LocationProvider
+    public location: LocationProvider,
+    public popoverCtrl: PopoverController
   ) { }
 
   ionViewDidEnter() {
@@ -27,8 +31,11 @@ export class MapPage implements OnInit {
     }, 300);
   }
 
-  ngOnInit() {
-
+  more(event) {
+    let profileModal = this.popoverCtrl.create(MoreComponent);
+    profileModal.present({
+      ev: event
+    });
   }
 
   initMap() {
@@ -57,7 +64,7 @@ export class MapPage implements OnInit {
   }
 
   goLogin() {
-    let profileModal = this.modalCtrl.create(LoginPage);
+    let profileModal = this.modalCtrl.create(LoginComponent);
     profileModal.present();
   }
 

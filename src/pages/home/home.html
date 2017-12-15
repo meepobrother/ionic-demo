@@ -1,21 +1,23 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      接单大厅
+      我的
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="more($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  The world is your oyster.   {{hasPermission}}
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-  <p>{{location | json}}</p>
-  <button ion-button (click)="sendNotification()">发送系统通知</button>
-  <button ion-button (click)="locationStart()">开始后台定位</button>
-  <button ion-button (click)="goSetting()">系统设置</button>
-  <button ion-button (click)="goLogin()">地图</button>
-  
-  
+<ion-content>
+  <ion-list>
+    <button ion-item>我的资料</button>
+    <button ion-item>我接收的</button>
+    <button ion-item>预约我的</button>
+    <button ion-item>我的技能</button>
+    <button ion-item>我的信息</button>
+    <button ion-item (click)="goSetting()">系统设置</button>
+    <button ion-item>联系客服</button>
+  </ion-list>
 </ion-content>

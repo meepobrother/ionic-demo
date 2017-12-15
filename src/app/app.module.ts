@@ -8,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 
 import { NotificationProvider } from '../providers/notification/notification';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
@@ -17,29 +16,28 @@ import { IonicStorageModule, StorageConfig } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginProvider } from '../providers/login/login';
 import { Geolocation } from '@ionic-native/geolocation';
-
-
-let config: StorageConfig = {
-  name: 'runner',
-  driverOrder: ['indexeddb', 'sqlite', 'websql']
+import { ComponentsModule } from '../components/components.module';
+import { AppProvider } from '../providers/app/app';
+export const config: StorageConfig = {
+  name: 'runner'
 };
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage
+    HomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(config),
-    HttpClientModule
+    HttpClientModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LoginPage
+    HomePage
   ],
   providers: [
     StatusBar,
@@ -49,7 +47,8 @@ let config: StorageConfig = {
     BackgroundGeolocation,
     LocationProvider,
     LoginProvider,
-    Geolocation
+    Geolocation,
+    AppProvider
   ]
 })
 export class AppModule { }

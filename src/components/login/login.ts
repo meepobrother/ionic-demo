@@ -6,7 +6,7 @@ import { LoginProvider } from '../../providers/login/login';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginComponent {
 
   constructor(
     params: NavParams,
