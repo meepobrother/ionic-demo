@@ -15,13 +15,20 @@ import { MoreComponent } from '../../components/more/more';
 export class HomePage {
   hasPermission: boolean = true;
   location: BackgroundGeolocationResponse;
+  canGoBack: boolean = false;
   constructor(
     public navCtrl: NavController,
     public notificationProvider: NotificationProvider,
     private locationProvider: LocationProvider,
     public popoverCtrl: PopoverController,
     public modalCtrl: ModalController
-  ) { }
+  ) {
+
+  }
+
+  ionViewDidEnter() {
+    this.canGoBack = this.navCtrl.canGoBack();
+  }
 
   goSetting() {
     this.navCtrl.push('SettingPage')

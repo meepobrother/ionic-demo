@@ -1,6 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>接单地图</ion-title>
+    <ion-segment [(ngModel)]="type">
+      <ion-segment-button value="tasks">
+        悬赏抢单
+      </ion-segment-button>
+      <ion-segment-button value="sorft">
+        财富排名
+      </ion-segment-button>
+    </ion-segment>
     <ion-buttons end>
       <button ion-button icon-only (click)="more($event)">
         <ion-icon name="more"></ion-icon>

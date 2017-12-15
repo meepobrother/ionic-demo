@@ -17,18 +17,28 @@ export class MapPage {
   @ViewChild('map') map: ElementRef;
 
   mapCtrl: any;
+  type: string = 'tasks';
+  canGoBack: boolean = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public location: LocationProvider,
     public popoverCtrl: PopoverController
-  ) { }
+  ) {
+
+  }
 
   ionViewDidEnter() {
+    this.canGoBack = this.navCtrl.canGoBack();
     setTimeout(() => {
       this.initMap();
     }, 300);
+  }
+
+  ionViewDidLeave() {
+    this.canGoBack = true;
   }
 
   more(event) {

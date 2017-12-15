@@ -8,28 +8,18 @@ import { HomePage } from '../../pages/home/home';
 export class MoreComponent {
 
   text: string;
-
   constructor(
     public navCtrl: NavController
   ) {
-    console.log('Hello MoreComponent Component');
     this.text = 'Hello World';
   }
 
   goHome() {
-    this.navCtrl.pop().then(res => {
-      this.navCtrl.push(HomePage);
-    }).catch(err => {
-      console.log(err);
-    });
+    this.navCtrl.push(HomePage);
   }
 
   goMap() {
-    this.navCtrl.pop().then(res => {
-      this.navCtrl.push('MapPage');
-    }).catch(err => {
-      console.log(err);
-    });
+    this.navCtrl.push('MapPage');
   }
 
 }
